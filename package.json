@@ -4,8 +4,8 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "build": "rm -rf ./index.js && tsc ./index.ts",
-    "start": "node ./index.js"
+    "build": "rm -rf ./public/index.js && tsc --outDir public ./index.ts",
+    "start": "node ./public/index.js"
   },
   "dependencies": {
     "apollo-server-express": "^3.13.0",
