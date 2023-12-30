@@ -2,7 +2,7 @@ const express = require('express')
 const { ApolloServer, gql } = require('apollo-server-express')
 const { faker } = require('@faker-js/faker')
 
-let PersonList = Array(process.env.PERSON_COUNT ?? 30)
+let PersonList = Array(process.env.PERSON_COUNT ? Number(process.env.PERSON_COUNT) : 30)
   .fill(undefined)
   .map((_) => ({
     id: faker.string.uuid(),
