@@ -48,15 +48,21 @@ const resolvers = {
 }
 const server = new ApolloServer({ typeDefs, resolvers })
 const app = express()
+app.use(express.json())
+
+const expressPort = process.env.EXPRESS_PORT ?? 9000
+const graphqlPort = process.env.GRAPHQL_PORT ?? 9001
 server.start().then(() => {
-  const port = 80
   server.applyMiddleware({ app })
 
-  app.listen({ port }, () => {
-    console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
+  app.listen({ port: graphqlPort }, () => {
+    console.log(`🚀 Graphql Server ready at http://localhost:${graphqlPort}${server.graphqlPath}`)
   })
 })
 
+app.listen(expressPort, () =>
+  console.log(`🚀 Graphql Server ready at http://localhost:${expressPort}`)
+)
 app.get('/', (req: any, res: any) => {
   res.end(`Server Ready! `)
 })
