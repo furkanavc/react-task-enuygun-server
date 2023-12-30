@@ -37,11 +37,11 @@ const resolvers = {
     PersonAll: () => data
   },
   Mutation: {
-    votePerson: (_: undefined, { id }: { id: string }) => {
+    votePerson: (_, { id }) => {
       data = data.map((d) => (d.id === id ? { ...d, voteCount: d.voteCount + 1 } : d))
       return data.find((d) => d.id === id)
     },
-    unVotePerson: (_: undefined, { id }: { id: string }) => {
+    unVotePerson: (_, { id }) => {
       data = data.map((d) => (d.id === id ? { ...d, voteCount: d.voteCount - 1 } : d))
       return data.find((d) => d.id === id)
     }
@@ -65,5 +65,3 @@ const graphqlPort = process.env.GRAPHQL_PORT ?? 9001
 app.listen(expressPort, () =>
   console.log(`🚀 Graphql Server ready at http://localhost:${expressPort}`)
 )
-
-module.exports = app
