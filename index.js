@@ -54,8 +54,7 @@ const server = new ApolloServer({ typeDefs, resolvers })
 app.use(express.json())
 app.use('/test', test)
 
-const expressPort = process.env.EXPRESS_PORT ?? 9000
-const graphqlPort = process.env.GRAPHQL_PORT ?? 9001
+const graphqlPort = process.env.GRAPHQL_PORT ?? 9000
 server.start().then(() => {
   server.applyMiddleware({ app })
 
@@ -64,6 +63,3 @@ server.start().then(() => {
   })
 })
 
-app.listen(expressPort, () => {
-  console.log(`🚀 Express Server ready at http://localhost:${expressPort}`)
-})
