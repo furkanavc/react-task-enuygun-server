@@ -1,8 +1,5 @@
 {
   "version": 2,
   "builds": [{ "src": "public/index.js", "use": "@vercel/node" }],
-  "routes": [
-    { "src": "/(.*)", "dest": "/graphql" },
-    { "src": "/graphql/(.*)", "dest": "/graphql" }
-  ]
+  "routes": [{ "src": "/(.*)", "dest": "/" }]
 }
