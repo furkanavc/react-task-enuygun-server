@@ -49,7 +49,7 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers })
 const app = express()
 server.start().then((res: any) => {
-  const port = 80
+  const port = 3000
   server.applyMiddleware({ app })
 
   app.listen({ port }, () => {
