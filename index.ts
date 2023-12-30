@@ -1,6 +1,7 @@
 const express = require('express')
 const { ApolloServer, gql } = require('apollo-server-express')
 const { faker } = require('@faker-js/faker')
+const test = require('./routes/test')
 
 const typeDefs = gql`
   type Person {
@@ -49,6 +50,7 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers })
 const app = express()
 app.use(express.json())
+app.use('/test', test)
 
 const expressPort = process.env.EXPRESS_PORT ?? 9000
 const graphqlPort = process.env.GRAPHQL_PORT ?? 9001
