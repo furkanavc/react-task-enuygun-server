@@ -58,7 +58,7 @@ class GraphqlServer {
     }
   }
 
-  async start(port = 3001) {
+  async start(port = 3000) {
     if (GraphqlServer.server && !GraphqlServer.url) {
       const { url } = await startStandaloneServer(GraphqlServer.server, { listen: { port } })
       GraphqlServer.url = url
