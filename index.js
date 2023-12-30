@@ -1,52 +1,52 @@
 const express = require('express')
-const { ApolloServer, gql } = require('apollo-server-express')
-const { faker } = require('@faker-js/faker')
 const test = require('./routes/test')
+// const { ApolloServer, gql } = require('apollo-server-express')
+// const { faker } = require('@faker-js/faker')
 
-const typeDefs = gql`
-  type Person {
-    id: ID!
-    fullName: String
-    email: String
-    voteCount: Int
-    image: String
-  }
+// const typeDefs = gql`
+//   type Person {
+//     id: ID!
+//     fullName: String
+//     email: String
+//     voteCount: Int
+//     image: String
+//   }
 
-  type Query {
-    PersonAll: [Person]
-  }
+//   type Query {
+//     PersonAll: [Person]
+//   }
 
-  type Mutation {
-    votePerson(id: ID!): Person
-    unVotePerson(id: ID!): Person
-  }
-`
+//   type Mutation {
+//     votePerson(id: ID!): Person
+//     unVotePerson(id: ID!): Person
+//   }
+// `
 
-let data = Array(30)
-  .fill(undefined)
-  .map((_) => ({
-    id: faker.string.uuid(),
-    image: faker.image.url(),
-    email: faker.internet.email(),
-    fullName: faker.person.fullName(),
-    voteCount: 0
-  }))
+// let data = Array(30)
+//   .fill(undefined)
+//   .map((_) => ({
+//     id: faker.string.uuid(),
+//     image: faker.image.url(),
+//     email: faker.internet.email(),
+//     fullName: faker.person.fullName(),
+//     voteCount: 0
+//   }))
 
-const resolvers = {
-  Query: {
-    PersonAll: () => data
-  },
-  Mutation: {
-    votePerson: (_, { id }) => {
-      data = data.map((d) => (d.id === id ? { ...d, voteCount: d.voteCount + 1 } : d))
-      return data.find((d) => d.id === id)
-    },
-    unVotePerson: (_, { id }) => {
-      data = data.map((d) => (d.id === id ? { ...d, voteCount: d.voteCount - 1 } : d))
-      return data.find((d) => d.id === id)
-    }
-  }
-}
+// const resolvers = {
+//   Query: {
+//     PersonAll: () => data
+//   },
+//   Mutation: {
+//     votePerson: (_, { id }) => {
+//       data = data.map((d) => (d.id === id ? { ...d, voteCount: d.voteCount + 1 } : d))
+//       return data.find((d) => d.id === id)
+//     },
+//     unVotePerson: (_, { id }) => {
+//       data = data.map((d) => (d.id === id ? { ...d, voteCount: d.voteCount - 1 } : d))
+//       return data.find((d) => d.id === id)
+//     }
+//   }
+// }
 // const server = new ApolloServer({ typeDefs, resolvers })
 const app = express()
 app.use(express.json())
