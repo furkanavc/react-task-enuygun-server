@@ -3,6 +3,8 @@ const test = require('./routes/test')
 // const { ApolloServer, gql } = require('apollo-server-express')
 // const { faker } = require('@faker-js/faker')
 
+const app = express()
+
 // const typeDefs = gql`
 //   type Person {
 //     id: ID!
@@ -48,7 +50,7 @@ const test = require('./routes/test')
 //   }
 // }
 // const server = new ApolloServer({ typeDefs, resolvers })
-const app = express()
+
 app.use(express.json())
 app.use('/test', test)
 
@@ -62,6 +64,6 @@ const graphqlPort = process.env.GRAPHQL_PORT ?? 9001
 //   })
 // })
 
-app.listen(expressPort, () =>
-  console.log(`🚀 Graphql Server ready at http://localhost:${expressPort}`)
-)
+app.listen(expressPort, () => {
+  console.log(`🚀 Express Server ready at http://localhost:${expressPort}`)
+})
