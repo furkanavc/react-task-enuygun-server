@@ -2,6 +2,16 @@ const express = require('express')
 const { ApolloServer, gql } = require('apollo-server-express')
 const { faker } = require('@faker-js/faker')
 
+let PersonList = Array(process.env.PERSON_COUNT ?? 30)
+  .fill(undefined)
+  .map((_) => ({
+    id: faker.string.uuid(),
+    image: faker.image.url(),
+    email: faker.internet.email(),
+    fullName: faker.person.fullName(),
+    voteCount: 0
+  }))
+
 const typeDefs = gql`
   type Person {
     id: ID!
@@ -21,28 +31,18 @@ const typeDefs = gql`
   }
 `
 
-let data = Array(30)
-  .fill(undefined)
-  .map((_) => ({
-    id: faker.string.uuid(),
-    image: faker.image.url(),
-    email: faker.internet.email(),
-    fullName: faker.person.fullName(),
-    voteCount: 0
-  }))
-
 const resolvers = {
   Query: {
-    PersonAll: () => data
+    PersonAll: () => PersonList
   },
   Mutation: {
     votePerson: (_, { id }) => {
-      data = data.map((d) => (d.id === id ? { ...d, voteCount: d.voteCount + 1 } : d))
-      return data.find((d) => d.id === id)
+      PersonList = PersonList.map((person) => (person.id === id ? { ...person, voteCount: person.voteCount + 1 } : person))
+      return PersonList.find((person) => person.id === id)
     },
     unVotePerson: (_, { id }) => {
-      data = data.map((d) => (d.id === id ? { ...d, voteCount: d.voteCount - 1 } : d))
-      return data.find((d) => d.id === id)
+      PersonList = PersonList.map((person) => (person.id === id ? { ...person, voteCount: person.voteCount - 1 } : person))
+      return PersonList.find((person) => person.id === id)
     }
   }
 }
