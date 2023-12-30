@@ -47,8 +47,8 @@ const resolvers = {
   }
 }
 const server = new ApolloServer({ typeDefs, resolvers })
+const app = express()
 server.start().then((res: any) => {
-  const app = express()
   const port = 80
   server.applyMiddleware({ app })
 
@@ -57,4 +57,8 @@ server.start().then((res: any) => {
   })
 })
 
-module.exports = {}
+app.get('/', (req: any, res: any) => {
+  res.end(`Server Ready! `)
+})
+
+module.exports = app
