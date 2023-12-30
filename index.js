@@ -54,7 +54,7 @@ const server = new ApolloServer({ typeDefs, resolvers })
 app.use(express.json())
 app.use('/test', test)
 
-const graphqlPort = process.env.GRAPHQL_PORT ?? 9000
+const graphqlPort = process.env.GRAPHQL_PORT ?? 3001
 server.start().then(() => {
   server.applyMiddleware({ app })
 
