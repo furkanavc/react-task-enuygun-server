@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-      "build": "rm -rf ./server.js && tsc ./server.ts",
-      "start": "node ./server.js"
+      "build": "rm -rf ./public/server.js && tsc ./server.ts && mv ./server.js ./public/server.js",
+      "start": "node ./public/server.js"
     },
     "dependencies": {
       "@apollo/server": "^4.9.5",

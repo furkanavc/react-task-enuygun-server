@@ -1,7 +1,6 @@
 const { ApolloServer } = require('@apollo/server')
 const { startStandaloneServer } = require('@apollo/server/standalone')
 const { faker } = require('@faker-js/faker')
-const { Person } = require('../types/Person')
 
 const typeDefs = `
 type Person {
