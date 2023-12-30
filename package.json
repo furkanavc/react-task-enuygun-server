@@ -4,7 +4,7 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "build": "rm -rf ./public/index.js && tsc --outDir public ./index.ts",
+    "build": "rm -rf ./public/index.js && tsc --outDir public ./index.ts && cp -r ./routes ./public",
     "start": "node ./public/index.js"
   },
   "dependencies": {
