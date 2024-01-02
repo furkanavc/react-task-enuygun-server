@@ -9,6 +9,7 @@ let PersonList = Array(process.env.PERSON_COUNT ? Number(process.env.PERSON_COUN
     image: faker.image.url(),
     email: faker.internet.email(),
     fullName: faker.person.fullName(),
+    jobTitle: faker.person.jobTitle(),
     voteCount: 0
   }))
 
@@ -17,12 +18,14 @@ const typeDefs = gql`
     id: ID!
     fullName: String
     email: String
+    jobTitle: String
     voteCount: Int
     image: String
   }
 
   type Query {
     PersonAll: [Person]
+    Person(id:ID!): Person
   }
 
   type Mutation {
@@ -33,7 +36,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    PersonAll: () => PersonList
+    PersonAll: () => PersonList,
+    Person: (_, { id }) =>  PersonList.find((person) => person.id === id)
   },
   Mutation: {
     votePerson: (_, { id }) => {
